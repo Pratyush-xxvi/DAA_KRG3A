@@ -1,0 +1,17 @@
+// exp3_frequency.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+template<typename T>
+unordered_map<T,int> frequency(const vector<T>& a) {
+    unordered_map<T,int> freq;
+    for(const T &x: a) ++freq[x];
+    return freq;
+}
+
+int main(){
+    vector<int> a = {3,1,2,3,2,3,4};
+    auto f = frequency(a);
+    cout << "Frequencies:\n";
+    for(auto &p: f) cout << p.first << " -> " << p.second << "\n";
+}

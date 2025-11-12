@@ -1,0 +1,21 @@
+// exp6_subset_sum.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// returns true if subset sums to target
+bool subset_sum(const vector<int>& arr, int target){
+    int n = arr.size();
+    vector<char> dp(target+1, 0);
+    dp[0] = 1;
+    for(int x: arr){
+        for(int s = target; s >= x; --s){
+            if (dp[s-x]) dp[s] = 1;
+        }
+    }
+    return dp[target];
+}
+
+int main(){
+    vector<int> arr = {3, 34, 4, 12, 5, 2};
+    cout << boolalpha << subset_sum(arr, 9) << "\n"; // true (4+5)
+}

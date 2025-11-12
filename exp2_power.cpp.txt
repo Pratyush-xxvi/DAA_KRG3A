@@ -1,0 +1,33 @@
+// exp2_power.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// integer power (a^b) mod not used; uses 64-bit
+long long pow_ll(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1) res = res * a;
+        a = a * a;
+        b >>= 1;
+    }
+    return res;
+}
+
+// double power
+double pow_double(double a, long long b) {
+    double res = 1.0;
+    bool neg = (b < 0);
+    if (neg) b = -b;
+    while (b > 0) {
+        if (b & 1) res *= a;
+        a *= a;
+        b >>= 1;
+    }
+    return neg ? 1.0/res : res;
+}
+
+int main(){
+    cout << "2^20 = " << pow_ll(2,20) << "\n";
+    cout << "1.5^10 = " << pow_double(1.5, 10) << "\n";
+    cout << "2^-3 = " << pow_double(2.0, -3) << "\n";
+}

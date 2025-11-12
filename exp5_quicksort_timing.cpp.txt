@@ -1,0 +1,36 @@
+// exp5_quicksort_timing.cpp
+#include <bits/stdc++.h>
+using namespace std;
+using hr = chrono::high_resolution_clock;
+
+int partition_vec(vector<int>& a, int l, int r){
+    int pivot = a[r];
+    int i = l - 1;
+    for(int j = l; j < r; ++j)
+        if (a[j] <= pivot) swap(a[++i], a[j]);
+    swap(a[i+1], a[r]);
+    return i+1;
+}
+
+void quicksort(vector<int>& a, int l, int r){
+    if (l < r){
+        int pi = partition_vec(a, l, r);
+        quicksort(a, l, pi-1);
+        quicksort(a, pi+1, r);
+    }
+}
+
+int main(){
+    vector<int> sizes = {1000, 5000, 20000, 50000}; // adjust as needed
+    mt19937 rng(12345);
+    for(int n: sizes){
+        vector<int> a(n);
+        for(int i=0;i<n;i++) a[i] = uniform_int_distribution<int>(0, 1e9)(rng);
+        auto b = a;
+        auto t1 = hr::now();
+        quicksort(b, 0, n-1);
+        auto t2 = hr::now();
+        chrono::duration<double> dt = t2 - t1;
+        cout << "n="<<n<<", time="<< dt.count() << " s\n";
+    }
+}
